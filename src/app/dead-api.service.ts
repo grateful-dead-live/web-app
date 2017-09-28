@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
 
+export interface DeadEvent {
+  id: string,
+  date: string,
+  location: string
+}
+
 @Injectable()
 export class DeadApiService {
 
@@ -7,18 +13,22 @@ export class DeadApiService {
 
   constructor() {}
 
-  getEvents(): Promise<{}> {
-    return this.getFromApi('events');
+  getEvents(): Promise<DeadEvent[]> {
+    return this.getJsonFromApi('events');
   }
 
-  getLocations(): Promise<{}> {
-    return this.getFromApi('locations');
+  getVenue(eventId: string): Promise<string> {
+    return this.getStringFromApi('venue?event='+encodeURIComponent(eventId));
   }
 
-  getFromApi(path: string): Promise<{}> {
+  getJsonFromApi(path: string): Promise<{}> {
+    return this.getStringFromApi(path)
+      .then(t => JSON.parse(t));
+  }
+
+  getStringFromApi(path: string): Promise<string> {
     return fetch(this.API_URL+path)
       .then(r => r.text())
-      .then(t => JSON.parse(t))
       .catch(e => console.log(e));
   }
 

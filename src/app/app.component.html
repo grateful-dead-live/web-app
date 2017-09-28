@@ -1,9 +1,25 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Grateful Dead
-  </h1>
-  <img width="300" src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg">
-  <div *ngFor="let l of locations">{{ l }}</div>
-</div>
-
+<md-toolbar>
+  <button md-button [mdMenuTriggerFor]="menu">Menu</button>
+  <md-menu #menu="mdMenu">
+    <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
+  </md-menu>
+  <span>Grateful Dead Live</span>
+  <md-toolbar-row *ngIf="selectedEvent">
+    <span>{{ selectedEvent.date }} {{ selectedEvent.location }}</span>
+  </md-toolbar-row>
+</md-toolbar>
+<md-card class="gd-card" *ngIf="venue">
+  <md-card-header>
+    <md-card-title>Venue</md-card-title>
+    <md-card-subtitle>{{ venue }}</md-card-subtitle>
+  </md-card-header>
+  <img md-card-image src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg">
+</md-card>
+<md-card class="gd-card" *ngIf="selectedEvent">
+  <md-card-header>
+    <md-card-title>Location</md-card-title>
+    <md-card-subtitle>{{ selectedEvent.location }}</md-card-subtitle>
+  </md-card-header>
+  <img md-card-image src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg">
+</md-card>
