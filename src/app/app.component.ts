@@ -12,6 +12,7 @@ export class AppComponent {
   private events: DeadEvent[];
   private selectedEvent;
   private venue;
+  private location;
 
   constructor(private apiService: DeadApiService) {
     this.apiService.getEvents().then(e => this.events = e.sort());
@@ -19,7 +20,8 @@ export class AppComponent {
 
   private eventSelected(event: DeadEvent) {
     this.selectedEvent = event;
-    this.apiService.getVenue(event.id).then(v => this.venue = v).then(()=>console.log(this.venue));
+    this.apiService.getVenue(event.id).then(v => this.venue = v);
+    this.apiService.getLocation(event.id).then(l => this.location = l);
   }
 
 }

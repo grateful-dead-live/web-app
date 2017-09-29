@@ -18,17 +18,17 @@ export class DeadApiService {
   }
 
   getVenue(eventId: string): Promise<string> {
-    return this.getStringFromApi('venue?event='+encodeURIComponent(eventId));
+    return this.getJsonFromApi('venue?event='+encodeURIComponent(eventId));
+  }
+
+  getLocation(eventId: string): Promise<string> {
+    return this.getJsonFromApi('location?event='+encodeURIComponent(eventId));
   }
 
   getJsonFromApi(path: string): Promise<{}> {
-    return this.getStringFromApi(path)
-      .then(t => JSON.parse(t));
-  }
-
-  getStringFromApi(path: string): Promise<string> {
     return fetch(this.API_URL+path)
       .then(r => r.text())
+      .then(t => JSON.parse(t))
       .catch(e => console.log(e));
   }
 
