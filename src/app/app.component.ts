@@ -19,6 +19,7 @@ export class AppComponent {
   private selectedEvent;
   private venue;
   private location;
+  private setlist;
 
   constructor(private apiService: DeadApiService, private observableMedia: ObservableMedia) {
     this.apiService.getEvents()
@@ -37,6 +38,7 @@ export class AppComponent {
     this.selectedEvent = event;
     this.apiService.getVenue(event.id).then(v => this.venue = v);
     this.apiService.getLocation(event.id).then(l => this.location = l);
+    this.apiService.getSetlist(event.id).then(s => this.setlist = s);
   }
 
 }

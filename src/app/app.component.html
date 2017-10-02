@@ -11,8 +11,8 @@
   </md-toolbar-row>
 </md-toolbar>
 <md-grid-list [cols]="cols | async" rowHeight="500px">
-  <md-grid-tile>
-    <md-card class="gd-card" *ngIf="venue">
+  <md-grid-tile *ngIf="venue">
+    <md-card class="gd-card">
       <md-card-header>
         <md-card-title>Venue</md-card-title>
         <md-card-subtitle>{{ venue.name }}</md-card-subtitle>
@@ -21,13 +21,21 @@
       <img md-card-image src="{{ venue.image }}">
     </md-card>
   </md-grid-tile>
-  <md-grid-tile>
-    <md-card class="gd-card" *ngIf="location">
+  <md-grid-tile *ngIf="location">
+    <md-card class="gd-card">
       <md-card-header>
         <md-card-title>Location</md-card-title>
         <md-card-subtitle>{{ location.name }}</md-card-subtitle>
       </md-card-header>
       <img md-card-image src="{{ location.image }}">
+    </md-card>
+  </md-grid-tile>
+  <md-grid-tile *ngIf="setlist">
+    <md-card class="gd-card">
+      <md-card-header>
+        <md-card-title>Setlist</md-card-title>
+      </md-card-header>
+      <div *ngFor="let s of setlist">{{ s }}</div>
     </md-card>
   </md-grid-tile>
 </md-grid-list>
