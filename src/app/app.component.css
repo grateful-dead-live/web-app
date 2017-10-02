@@ -1,4 +1,5 @@
 .gd-card {
-  width: 28%;
-  float: left;
+  margin: auto;
+  width: 100%;
+  height: 100%;
 }

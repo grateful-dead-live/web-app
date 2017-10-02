@@ -10,18 +10,24 @@
     <span>{{ selectedEvent.date }} {{ selectedEvent.location }}</span>
   </md-toolbar-row>
 </md-toolbar>
-<md-card class="gd-card" *ngIf="venue">
-  <md-card-header>
-    <md-card-title>Venue</md-card-title>
-    <md-card-subtitle>{{ venue.name }}</md-card-subtitle>
-  </md-card-header>
-  <md-card-content>({{ venue.sameas }})</md-card-content>
-  <img md-card-image src="{{ venue.image }}">
-</md-card>
-<md-card class="gd-card" *ngIf="location">
-  <md-card-header>
-    <md-card-title>Location</md-card-title>
-    <md-card-subtitle>{{ location.name }}</md-card-subtitle>
-  </md-card-header>
-  <img md-card-image src="{{ location.image }}">
-</md-card>
+<md-grid-list [cols]="cols | async" rowHeight="500px">
+  <md-grid-tile>
+    <md-card class="gd-card" *ngIf="venue">
+      <md-card-header>
+        <md-card-title>Venue</md-card-title>
+        <md-card-subtitle>{{ venue.name }}</md-card-subtitle>
+      </md-card-header>
+      <md-card-content>({{ venue.sameas }})</md-card-content>
+      <img md-card-image src="{{ venue.image }}">
+    </md-card>
+  </md-grid-tile>
+  <md-grid-tile>
+    <md-card class="gd-card" *ngIf="location">
+      <md-card-header>
+        <md-card-title>Location</md-card-title>
+        <md-card-subtitle>{{ location.name }}</md-card-subtitle>
+      </md-card-header>
+      <img md-card-image src="{{ location.image }}">
+    </md-card>
+  </md-grid-tile>
+</md-grid-list>
