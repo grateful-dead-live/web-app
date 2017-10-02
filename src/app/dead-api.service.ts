@@ -29,6 +29,10 @@ export class DeadApiService {
     return this.getJsonFromApi('setlist?event='+encodeURIComponent(eventId));
   }
 
+  getPerformers(eventId: string): Promise<{}[]> {
+    return this.getJsonFromApi('performers?event='+encodeURIComponent(eventId));
+  }
+
   getJsonFromApi(path: string): Promise<{}> {
     return fetch(this.API_URL+path)
       .then(r => r.text())
