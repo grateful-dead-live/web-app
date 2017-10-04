@@ -4,7 +4,7 @@ import { DeadEvent } from './dead-api.service';
 
 @Component({
   selector: 'date-axis',
-  template: '<div class="d3-visuals" #visuals (window:resize)="onResize($event)"></div>',
+  template: '<div mdTooltip="{{tooltipText}}" mdTooltipPosition="above" class="d3-visuals" #visuals (window:resize)="onResize($event)"></div>',
   providers: []
 })
 export class DateAxis implements OnInit, OnChanges {
@@ -15,9 +15,10 @@ export class DateAxis implements OnInit, OnChanges {
   private element;
   private svg;
   private width;
-  private height;
+  private height = 100;
   private dateScale;
   private dateAxis;
+  private tooltipText = "";
 
   ngOnInit() {
     this.init();
@@ -26,26 +27,81 @@ export class DateAxis implements OnInit, OnChanges {
   private init() {
     if (!this.svg) {
       this.element = this.visualsContainer.nativeElement;
-      this.updateWidthAndHeight();
+      this.updateWidth();
       this.svg = d3.select(this.element).append('svg')
         .attr('width', this.element.offsetWidth)
-        .attr('height', 50)
+        .attr('height', this.height)
         .style("background-color", "black");
       this.updateVisuals();
     }
   }
 
-  private updateWidthAndHeight() {
+  private updateWidth() {
     this.width = this.element.offsetWidth - this.margins.left - this.margins.right;
-    this.height = 50;
   }
 
   private updateVisuals() {
     this.updateAxis();
-    this.updateDatePoints();
+    this.updateDateLines();
   }
 
-  private updateDatePoints() {
+  private updateDateLines() {
+    if (this.events) {
+      let dataSelection = this.svg.selectAll(".path").data(this.events);
+      let triangle = d3.symbol().type(d3.symbolStar).size(()=>2000);
+      let lineFunction = d3.line()
+        .x(d => d.x)
+        .y(d => d.y)
+
+      var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+      dataSelection.enter()
+        .append("path")
+        .attr("d", lineFunction([{ "x": 0, "y": 0}, { "x": 0, "y": 70}]))
+        .attr("transform", e => "translate("+this.eventToDatePoint(e)+","+0+")")
+        .style("stroke", e => "hsl("+this.eventToDatePoint(e)+", 80%, 50%)")
+        .attr("stroke-width", 2)
+        .style("opacity", 0.5)
+        .on("click", e => this.onClick(e))
+        .on("mouseover", d => this.tooltipText = d.date+" "+d.location)
+        .on("mouseout", d => this.tooltipText = "")
+          .transition()
+            .duration(200) // time of initial growth
+
+        dataSelection
+          .transition()
+            .duration(200) // time of transition
+
+        dataSelection.exit().remove();
+    }
+  }
+
+  private updateDateTriangles() {
+    if (this.events) {
+      let dataSelection = this.svg.selectAll(".path").data(this.events);
+      let triangle = d3.symbol().type(d3.symbolTriangle).size(()=>800);
+
+      dataSelection.enter()
+        .append("path")
+        .attr("d", triangle)
+        .attr("transform", e => "translate("+this.eventToDatePoint(e)+","+this.height/2+")")
+        .style("fill", e => "hsl("+this.eventToDatePoint(e)+", 80%, 50%)")
+        //.style("opacity", 0.3)
+        .on("click", e => this.onClick(e))
+        .transition()
+          .duration(200) // time of initial growth
+
+      dataSelection
+        .transition()
+          .duration(200) // time of transition
+
+      dataSelection.exit().remove();
+    }
+  }
+
+  private updateDateCircles() {
     if (this.events) {
       let dataSelection = this.svg.selectAll(".circle").data(this.events);
 
@@ -85,7 +141,7 @@ export class DateAxis implements OnInit, OnChanges {
         .tickFormat(d3.timeFormat("%y/%m/%d"));
       var axis = this.svg.append("g")
         .attr("class", "xaxis")
-        .attr("transform", "translate(0," + this.height / 1.7 + ")")
+        .attr("transform", "translate(0," + this.height/1.4 + ")")
         .call(this.dateAxis);
       axis.selectAll("line").style("stroke", "white");
       axis.selectAll("path").style("stroke", "white");
@@ -94,7 +150,7 @@ export class DateAxis implements OnInit, OnChanges {
       this.dateScale.range([this.margins.left, this.width]);
       this.dateAxis.scale(this.dateScale);
       this.svg.selectAll("g.xaxis")
-        .attr("transform", "translate(0," + this.height / 1.7 + ")")
+        .attr("transform", "translate(0," + this.height/1.4 + ")")
         .call(this.dateAxis);
     }
   }
@@ -107,7 +163,7 @@ export class DateAxis implements OnInit, OnChanges {
   }
 
   onResize(event) {
-    this.updateWidthAndHeight();
+    this.updateWidth();
     this.svg.attr('width', this.element.offsetWidth);
     this.updateVisuals();
   }
