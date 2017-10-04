@@ -25,6 +25,10 @@ export class DeadApiService {
     return this.getJsonFromApi('location?event='+encodeURIComponent(eventId));
   }
 
+  getWeather(eventId: string): Promise<string> {
+    return this.getJsonFromApi('weather?event='+encodeURIComponent(eventId));
+  }
+
   getSetlist(eventId: string): Promise<string[]> {
     return this.getJsonFromApi('setlist?event='+encodeURIComponent(eventId));
   }
