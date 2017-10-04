@@ -35,7 +35,8 @@ export class AppComponent {
       .startWith(3);
   }
 
-  private eventSelected(event: DeadEvent) {
+  eventSelected(event: DeadEvent) {
+    console.log(event)
     this.selectedEvent = event;
     this.apiService.getVenue(event.id).then(v => this.venue = v);
     this.apiService.getLocation(event.id).then(l => this.location = l);

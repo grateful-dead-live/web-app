@@ -35,7 +35,9 @@
       <md-card-header>
         <md-card-title>Setlist</md-card-title>
       </md-card-header>
-      <div *ngFor="let s of setlist">{{ s }}</div>
+      <md-card-content>
+        <div *ngFor="let s of setlist">{{ s }}</div>
+      </md-card-content>
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="performers">
@@ -43,7 +45,10 @@
       <md-card-header>
         <md-card-title>Performers</md-card-title>
       </md-card-header>
-      <div *ngFor="let p of performers">{{ p.name }} ({{ p.instruments.join(', ') }})</div>
+      <md-card-content>
+        <div *ngFor="let p of performers">{{ p.name }} ({{ p.instruments.join(', ') }})</div>
+      </md-card-content>
     </md-card>
   </md-grid-tile>
 </md-grid-list>
+<date-axis [events]="events" [onClick]="eventSelected.bind(this)"></date-axis>

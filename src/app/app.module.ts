@@ -5,11 +5,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
+import { DateAxis } from './date-axis.component';
 import { DeadApiService } from './dead-api.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DateAxis
   ],
   imports: [
     BrowserModule,
