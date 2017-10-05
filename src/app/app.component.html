@@ -19,6 +19,7 @@
       </md-card-header>
       <!--md-card-content>({{ venue.sameas }})</md-card-content-->
       <img md-card-image src="{{ venue.image }}">
+      <md-card-content>{{ venue.comment }}</md-card-content>
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="tickets&&tickets.length > 0">
@@ -26,7 +27,7 @@
       <md-card-header>
         <md-card-title>Ticket</md-card-title>
       </md-card-header>
-      <img *ngFor="let t of tickets" src="{{ t }}">
+      <img md-card-image *ngFor="let t of tickets" src="{{ t }}">
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="posters&&posters.length > 0">
@@ -34,7 +35,7 @@
       <md-card-header>
         <md-card-title>Poster</md-card-title>
       </md-card-header>
-      <img *ngFor="let p of posters" src="{{ p }}">
+      <img md-card-image *ngFor="let p of posters" src="{{ p }}">
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="location">
@@ -44,6 +45,17 @@
         <md-card-subtitle>{{ location.name }}</md-card-subtitle>
       </md-card-header>
       <img md-card-image src="{{ location.image }}">
+      <md-card-content>{{ location.comment }}</md-card-content>
+    </md-card>
+  </md-grid-tile>
+  <md-grid-tile *ngIf="weather">
+    <md-card class="gd-card">
+      <md-card-header>
+        <md-card-title>Weather</md-card-title>
+      </md-card-header>
+      <md-card-content>
+        <h6>{{ weather.maxTemperature }} °C<br>{{ weather.precipitation }} mm</h6>
+      </md-card-content>
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="setlist">
@@ -68,16 +80,6 @@
           </md-grid-tile>
         </md-grid-list>
         <div *ngFor="let p of performers">{{ p.name }} ({{ p.instruments.join(', ') }})</div>
-      </md-card-content>
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile *ngIf="weather">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Weather</md-card-title>
-      </md-card-header>
-      <md-card-content>
-        <h6>{{ weather.maxTemperature }} °C<br>{{ weather.precipitation }} mm</h6>
       </md-card-content>
     </md-card>
   </md-grid-tile>

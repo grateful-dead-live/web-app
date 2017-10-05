@@ -52,8 +52,7 @@ export class AppComponent {
     this.apiService.getSetlist(event.id).then(s => this.setlist = s);
     this.apiService.getRecordings(event.id)
       .then(rs => this.recordings = rs.map(r => "https://archive.org/embed/"+r+"&playlist=1"))
-      .then(() => this.selectedRec = this.recordings[0])
-      .then(() => console.log(this.selectedRec))
+      .then(() => this.selectedRec = this.recordings[0]);
     this.apiService.getPerformers(event.id).then(p => this.performers = p)
       .then(()=>this.performerImages = this.performers.map(p => p.image).filter(i => i));
   }

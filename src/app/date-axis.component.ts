@@ -129,7 +129,10 @@ export class DateAxis implements OnInit, OnChanges {
     }
   }
 
-  eventToDatePoint = (event: DeadEvent) => this.dateScale(new Date(Date.parse(event.date)));
+  private eventToDatePoint = (event: DeadEvent) => {
+    let p = this.dateScale(new Date(Date.parse(event.date)));
+    return !isNaN(p) ? p : 0;
+  }
 
   private updateAxis() {
     if (!this.dateScale) {
