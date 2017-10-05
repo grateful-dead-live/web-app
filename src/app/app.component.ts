@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
@@ -23,8 +24,12 @@ export class AppComponent {
   private setlist;
   private performers;
   private performerImages;
+  private tickets;
+  private posters;
+  private recordings;
+  private selectedRec;
 
-  constructor(private apiService: DeadApiService, private observableMedia: ObservableMedia) {
+  constructor(private apiService: DeadApiService, private observableMedia: ObservableMedia, private sanitizer: DomSanitizer) {
     this.apiService.getEvents()
       .then(e => this.events = e.sort())
       .then(() => this.eventSelected(this.events[Math.floor(Math.random()*this.events.length)]));
@@ -40,9 +45,15 @@ export class AppComponent {
   eventSelected(event: DeadEvent) {
     this.selectedEvent = event;
     this.apiService.getVenue(event.id).then(v => this.venue = v);
+    this.apiService.getPosters(event.id).then(p => this.posters = p);
+    this.apiService.getTickets(event.id).then(t => this.tickets = t);
     this.apiService.getLocation(event.id).then(l => this.location = l);
     this.apiService.getWeather(event.id).then(w => this.weather = w);
     this.apiService.getSetlist(event.id).then(s => this.setlist = s);
+    this.apiService.getRecordings(event.id)
+      .then(rs => this.recordings = rs.map(r => "https://archive.org/embed/"+r+"&playlist=1"))
+      .then(() => this.selectedRec = this.recordings[0])
+      .then(() => console.log(this.selectedRec))
     this.apiService.getPerformers(event.id).then(p => this.performers = p)
       .then(()=>this.performerImages = this.performers.map(p => p.image).filter(i => i));
   }

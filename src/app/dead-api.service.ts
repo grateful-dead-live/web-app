@@ -21,6 +21,14 @@ export class DeadApiService {
     return this.getJsonFromApi('venue?event='+encodeURIComponent(eventId));
   }
 
+  getPosters(eventId: string): Promise<string> {
+    return this.getJsonFromApi('posters?event='+encodeURIComponent(eventId));
+  }
+
+  getTickets(eventId: string): Promise<string> {
+    return this.getJsonFromApi('tickets?event='+encodeURIComponent(eventId));
+  }
+
   getLocation(eventId: string): Promise<string> {
     return this.getJsonFromApi('location?event='+encodeURIComponent(eventId));
   }
@@ -31,6 +39,10 @@ export class DeadApiService {
 
   getSetlist(eventId: string): Promise<string[]> {
     return this.getJsonFromApi('setlist?event='+encodeURIComponent(eventId));
+  }
+
+  getRecordings(eventId: string): Promise<string[]> {
+    return this.getJsonFromApi('recordings?event='+encodeURIComponent(eventId));
   }
 
   getPerformers(eventId: string): Promise<{}[]> {
