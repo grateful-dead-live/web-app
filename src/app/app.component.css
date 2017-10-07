@@ -5,4 +5,11 @@
   overflow: scroll;
 }
 
-h6 { font-size: 100px; }
+agm-map {
+  width: 100%;
+  height: 300px;
+}
+
+h6 {
+  font-size: 100px;
+}

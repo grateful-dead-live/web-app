@@ -20,6 +20,9 @@
       <!--md-card-content>({{ venue.sameas }})</md-card-content-->
       <img md-card-image src="{{ venue.image }}">
       <md-card-content>{{ venue.comment }}</md-card-content>
+      <agm-map *ngIf="venue.geoloc" [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long" [zoom]="12" [scrollwheel]=false>
+        <agm-marker [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long"></agm-marker>
+      </agm-map>
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="tickets&&tickets.length > 0">
@@ -46,6 +49,9 @@
       </md-card-header>
       <img md-card-image src="{{ location.image }}">
       <md-card-content>{{ location.comment }}</md-card-content>
+      <agm-map *ngIf="location.geoloc" [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long" [zoom]="9"  [scrollwheel]=false>
+        <agm-marker [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long"></agm-marker>
+      </agm-map>
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="weather">
