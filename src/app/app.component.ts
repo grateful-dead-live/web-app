@@ -50,11 +50,16 @@ export class AppComponent {
     this.apiService.getLocation(event.id).then(l => this.location = l);
     this.apiService.getWeather(event.id).then(w => this.weather = w);
     this.apiService.getSetlist(event.id).then(s => this.setlist = s);
-    this.apiService.getRecordings(event.id)
-      .then(rs => this.recordings = rs.map(r => "https://archive.org/embed/"+r+"&playlist=1"))
-      .then(() => this.selectedRec = this.recordings[0]);
+    this.apiService.getRecordings(event.id).then(rs => this.initRecordings(rs));
     this.apiService.getPerformers(event.id).then(p => this.performers = p)
       .then(()=>this.performerImages = this.performers.map(p => p.image).filter(i => i));
+  }
+
+  private initRecordings(ids: string[]) {
+    this.recordings = ids.map(r => ({id:r}));
+    this.recordings.forEach(r =>
+      r.url = this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.id+"&playlist=1"));
+    this.selectedRec = this.recordings[0];
   }
 
 }

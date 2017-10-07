@@ -94,7 +94,12 @@
       <md-card-header>
         <md-card-title>Recordings</md-card-title>
       </md-card-header>
-      <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(selectedRec)" width="400" height="500" frameborder="0"></iframe>
+      <md-select [(ngModel)]="selectedRec">
+        <md-option *ngFor="let r of recordings" [value]="r">
+          {{ r.id }}
+        </md-option>
+      </md-select>
+      <iframe [src]="selectedRec.url" width="400" height="500" frameborder="0"></iframe>
     </md-card>
   </md-grid-tile>
 </md-grid-list>
