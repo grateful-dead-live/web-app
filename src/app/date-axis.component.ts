@@ -19,6 +19,7 @@ export class DateAxis implements OnInit, OnChanges {
   private dateScale;
   private dateAxis;
   private tooltipText = "";
+  private DATE_LINE_CLASS = "dateline";
 
   ngOnInit() {
     this.init();
@@ -47,18 +48,12 @@ export class DateAxis implements OnInit, OnChanges {
 
   private updateDateLines() {
     if (this.events) {
-      let dataSelection = this.svg.selectAll(".path").data(this.events);
-      let triangle = d3.symbol().type(d3.symbolStar).size(()=>2000);
-      let lineFunction = d3.line()
-        .x(d => d.x)
-        .y(d => d.y)
-
-      var div = d3.select("body").append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0);
+      let dataSelection = this.svg.selectAll("."+this.DATE_LINE_CLASS).data(this.events);
+      let lineFunction = d3.line().x(d => d.x).y(d => d.y);
 
       dataSelection.enter()
         .append("path")
+        .attr("class", this.DATE_LINE_CLASS)
         .attr("d", lineFunction([{ "x": 0, "y": 0}, { "x": 0, "y": 70}]))
         .attr("transform", e => "translate("+this.eventToDatePoint(e)+","+0+")")
         .style("stroke", e => "hsl("+this.eventToDatePoint(e)+", 80%, 50%)")
@@ -67,20 +62,18 @@ export class DateAxis implements OnInit, OnChanges {
         .on("click", e => this.onClick(e))
         .on("mouseover", d => this.tooltipText = d.date+" "+d.location)
         .on("mouseout", d => this.tooltipText = "")
-          .transition()
-            .duration(200) // time of initial growth
 
-        dataSelection
-          .transition()
-            .duration(200) // time of transition
+      dataSelection
+        .transition()
+          .attr("transform", e => "translate("+this.eventToDatePoint(e)+","+0+")")
 
-        dataSelection.exit().remove();
+      dataSelection.exit().remove();
     }
   }
 
   private updateDateTriangles() {
     if (this.events) {
-      let dataSelection = this.svg.selectAll(".path").data(this.events);
+      let dataSelection = this.svg.selectAll(".path").data(this.events, d => d.date);
       let triangle = d3.symbol().type(d3.symbolTriangle).size(()=>800);
 
       dataSelection.enter()
