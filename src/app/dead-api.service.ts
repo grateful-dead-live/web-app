@@ -9,7 +9,7 @@ export interface DeadEvent {
 @Injectable()
 export class DeadApiService {
 
-  private API_URL = "http://localhost:8060/";
+  private API_URL = "https://grateful-dead-api.herokuapp.com/";//"http://localhost:8060/";
 
   constructor() {}
 
