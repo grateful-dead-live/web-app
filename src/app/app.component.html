@@ -1,41 +1,56 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<md-toolbar>
-  <button md-button [mdMenuTriggerFor]="menu">Menu</button>
+<md-toolbar class="black">
+  <button md-button [mdMenuTriggerFor]="menu"><h1>the <img src="assets/gd_logo1.png" height="50" align="middle"> concert explorer</h1></button>
   <md-menu #menu="mdMenu">
     <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
   </md-menu>
   <!--img src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg"-->
-  <span>Grateful Dead Live</span>
   <md-toolbar-row *ngIf="selectedEvent">
     <span>{{ selectedEvent.date }} {{ selectedEvent.location }}</span>
   </md-toolbar-row>
 </md-toolbar>
+
 <md-grid-list [cols]="cols | async" rowHeight="400px">
   <md-grid-tile *ngIf="location">
+     <!--<md-grid-tile-header>
+          <h3><font color="red">This is some text!</font></h3>
+        </md-grid-tile-header> -->
     <md-card class="gd-card">
       <md-card-header>
         <md-card-title>Location</md-card-title>
-        <md-card-subtitle>{{ location.name }}</md-card-subtitle>
+         <!-- <md-card-subtitle>{{ location.name }}</md-card-subtitle>  -->
       </md-card-header>
-      <img md-card-image src="{{ location.image }}">
+      <button md-button [mdMenuTriggerFor]="locmenu">{{ location.name }} </button>
+      <md-menu #locmenu="mdMenu">
+        <button md-menu-item *ngFor="let e of location.events" (click)="eventSelected(e)">{{ e.date }} {{ e.venue }}</button>
+      </md-menu>
+      <img md-card-image src="{{ location.thumbnail }}" (click)="openDialog(location.image)">
       <md-card-content>{{ location.comment }}</md-card-content>
       <agm-map *ngIf="location.geoloc" [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long" [zoom]="9"  [scrollwheel]=false>
         <agm-marker [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long"></agm-marker>
       </agm-map>
+   
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="venue">
     <md-card class="gd-card">
       <md-card-header>
         <md-card-title>Venue</md-card-title>
-        <md-card-subtitle>{{ venue.name }}</md-card-subtitle>
+        <!-- <md-card-subtitle>{{ venue.name }}</md-card-subtitle> -->
       </md-card-header>
+
+      <button md-button [mdMenuTriggerFor]="venmenu">{{ venue.name }} </button>
+      <md-menu #venmenu="mdMenu">
+        <button md-menu-item *ngFor="let e of venue.events" (click)="eventSelected(e)">{{ e.date }}</button>
+      </md-menu>
+
       <!--md-card-content>({{ venue.sameas }})</md-card-content-->
-      <img md-card-image src="{{ venue.image }}">
+      <img md-card-image src="{{ venue.thumbnail }}" (click)="openDialog(venue.image)">
       <md-card-content>{{ venue.comment }}</md-card-content>
       <agm-map *ngIf="venue.geoloc" [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long" [zoom]="12" [scrollwheel]=false>
         <agm-marker [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long"></agm-marker>
       </agm-map>
+      
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="tickets&&tickets.length > 0">
@@ -43,15 +58,20 @@
       <md-card-header>
         <md-card-title>Ticket</md-card-title>
       </md-card-header>
-      <img md-card-image *ngFor="let t of tickets" src="{{ t }}">
+      <!--<button mat-raised-button (click)="openDialog()">Pick one</button>-->
+      <img md-card-image *ngFor="let t of tickets" src="{{ t }}" (click)="openDialog(t)">
     </md-card>
+
   </md-grid-tile>
   <md-grid-tile *ngIf="posters&&posters.length > 0">
     <md-card class="gd-card">
       <md-card-header>
         <md-card-title>Poster</md-card-title>
       </md-card-header>
-      <img md-card-image *ngFor="let p of posters" src="{{ p }}">
+      <img md-card-image *ngFor="let p of posters" src="{{ p }}" (click)="openDialog(p)">
+
+
+
     </md-card>
   </md-grid-tile>
   <md-grid-tile *ngIf="weather">
@@ -60,17 +80,31 @@
         <md-card-title>Weather</md-card-title>
       </md-card-header>
       <md-card-content>
-        <h6>{{ weather.maxTemperature }} °C<br>{{ weather.precipitation }} mm</h6>
+        <h3>max. temperature: {{ weather.maxTemperature }}°C<br>
+          precipitation: {{ weather.precipitation }}mm<br>
+          wind: {{ weather.wind }}km/h {{weather.wind_direction}}
+        </h3>
+        
+
       </md-card-content>
     </md-card>
   </md-grid-tile>
+
   <md-grid-tile *ngIf="setlist">
     <md-card class="gd-card">
       <md-card-header>
         <md-card-title>Setlist</md-card-title>
       </md-card-header>
       <md-card-content>
-        <div *ngFor="let s of setlist">{{ s }}</div>
+<!--<div *ngFor="let s of setlist">{{ s.name }}</div> -->
+
+
+  <div *ngFor="let s of setlist">
+      <button md-button [mdMenuTriggerFor]="setmenu">{{ s.name }}</button>
+      <md-menu #setmenu="mdMenu">
+          <button md-menu-item *ngFor="let e of s.events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
+      </md-menu>
+  </div>
       </md-card-content>
     </md-card>
   </md-grid-tile>
@@ -80,12 +114,28 @@
         <md-card-title>Performers</md-card-title>
       </md-card-header>
       <md-card-content>
+
+          <md-grid-list [cols]="2">
+              <md-grid-tile *ngFor="let p of performers">
+                  <div class="gallery">
+                    <img src="{{ p.thumbnail }}" (click)="openDialog(p.image)">
+                    <div class="desc">{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
+                  </div>
+                </md-grid-tile>
+              </md-grid-list>
+          
+
+        <!--
         <md-grid-list [cols]="3">
           <md-grid-tile *ngFor="let i of performerImages">
             <img src="{{ i }}" width="100%">
           </md-grid-tile>
         </md-grid-list>
         <div *ngFor="let p of performers">{{ p.name }} ({{ p.instruments.join(', ') }})</div>
+        <p>-------</p>
+        -->
+
+
       </md-card-content>
     </md-card>
   </md-grid-tile>
@@ -94,13 +144,44 @@
       <md-card-header>
         <md-card-title>Recordings</md-card-title>
       </md-card-header>
-      <md-select [(ngModel)]="selectedRec" [style.width]="'100%'">
+      <md-select [(ngModel)]="selectedRec" [style.width]="'100%'" (ngModelChange)="recordingSelected()">
         <md-option *ngFor="let r of recordings" [value]="r">
           {{ r.id }}
         </md-option>
       </md-select>
-      <iframe [src]="selectedRec.url" [style.width]="'100%'" height="280" frameborder="0"></iframe>
+      <iframe [src]="selectedRec.url" [style.width]="'100%'" height="1000" frameborder="0"></iframe>
+
     </md-card>
   </md-grid-tile>
+
+  <md-grid-tile *ngIf="etreeinfo&&etreeinfo.notes != 'n/a'">
+    <md-card class="gd-card">
+      <md-card-header>
+        <md-card-title>Recording Info</md-card-title>
+      </md-card-header>
+      <div *ngIf="etreeinfo">
+        <h4>ID:<br />{{ etreeinfo.id }}</h4>
+        <h4>SOURCE:<br />{{ etreeinfo.source }}</h4>
+        <h4>LINEAGE:<br />{{ etreeinfo.lineage }}</h4>
+        <h4>NOTES:<br />{{ etreeinfo.notes }}</h4>
+        <h4>KEYWORDS:<br />{{ etreeinfo.keywords }}</h4>
+      </div>
+    </md-card>
+  </md-grid-tile>
+
+
+  <md-grid-tile *ngIf="etreeinfo&&etreeinfo.tracks != 'n/a'">
+      <md-card class="gd-card">
+        <md-card-header>
+          <md-card-title>Spectrograms</md-card-title>
+        </md-card-header>
+        <div *ngFor="let e of etreeinfo.tracks; let i = index">
+           <span>track {{i+1}}</span>
+           <img md-card-image src="{{ 'https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png' }}" (click)="openDialog('https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png')">
+        </div>
+      </md-card>
+    </md-grid-tile>
+
 </md-grid-list>
+
 <date-axis [events]="events" [onClick]="eventSelected.bind(this)"></date-axis>

@@ -54,9 +54,10 @@ export class DateAxis implements OnInit, OnChanges {
       dataSelection.enter()
         .append("path")
         .attr("class", this.DATE_LINE_CLASS)
-        .attr("d", lineFunction([{ "x": 0, "y": 0}, { "x": 0, "y": 70}]))
+        .attr("d", lineFunction([{ "x": 0, "y": 0}, { "x": 0, "y": 40}]))
         .attr("transform", e => "translate("+this.eventToDatePoint(e)+","+0+")")
-        .style("stroke", e => "hsl("+this.eventToDatePoint(e)+", 80%, 50%)")
+        //.style("stroke", e => "hsl("+this.eventToDatePoint(e)+", 80%, 50%)")
+        .style("stroke", e => "hsl(100, 0%, 60%)")
         .attr("stroke-width", 2)
         .style("opacity", 0.5)
         .on("click", e => this.onClick(e))
@@ -137,7 +138,7 @@ export class DateAxis implements OnInit, OnChanges {
         .tickFormat(d3.timeFormat("%y/%m/%d"));
       var axis = this.svg.append("g")
         .attr("class", "xaxis")
-        .attr("transform", "translate(0," + this.height/1.4 + ")")
+        .attr("transform", "translate(0," + this.height/2.5 + ")")
         .call(this.dateAxis);
       axis.selectAll("line").style("stroke", "white");
       axis.selectAll("path").style("stroke", "white");
@@ -146,7 +147,7 @@ export class DateAxis implements OnInit, OnChanges {
       this.dateScale.range([this.margins.left, this.width]);
       this.dateAxis.scale(this.dateScale);
       this.svg.selectAll("g.xaxis")
-        .attr("transform", "translate(0," + this.height/1.4 + ")")
+        .attr("transform", "translate(0," + this.height/2.5 + ")")
         .call(this.dateAxis);
     }
   }

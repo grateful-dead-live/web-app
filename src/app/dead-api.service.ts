@@ -6,10 +6,12 @@ export interface DeadEvent {
   location: string
 }
 
+
 @Injectable()
 export class DeadApiService {
 
-  private API_URL = "https://grateful-dead-api.herokuapp.com/";//"http://localhost:8060/";
+  //private API_URL = "https://grateful-dead-api.herokuapp.com/";//"http://localhost:8060/";
+  private API_URL = "http://localhost:8060/";
 
   constructor() {}
 
@@ -49,11 +51,14 @@ export class DeadApiService {
     return this.getJsonFromApi('performers?event='+encodeURIComponent(eventId));
   }
 
+  getEtreeInfo(recordingId: string): Promise<{}>  {
+    return this.getJsonFromApi('etreeinfo?recording='+encodeURIComponent(recordingId));
+  }
+
   getJsonFromApi(path: string): Promise<{}> {
     return fetch(this.API_URL+path)
       .then(r => r.text())
       .then(t => JSON.parse(t))
       .catch(e => console.log(e));
   }
-
 }
