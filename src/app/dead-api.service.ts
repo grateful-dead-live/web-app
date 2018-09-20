@@ -10,20 +10,20 @@ export interface DeadEvent {
 @Injectable()
 export class DeadApiService {
 
-  private API_URL = "https://grateful-dead-api.herokuapp.com/";//"http://localhost:8060/";
+  private API_URL = "http://localhost:8060/"//"https://grateful-dead-api.herokuapp.com/";//"http://localhost:8060/";
   //private API_URL = "http://localhost:8060/";
 
   constructor() {}
 
-  getEvents(): Promise<DeadEvent[]> {
+  async getEvents(): Promise<DeadEvent[]> {
     return this.getJsonFromApi('events');
   }
 
-  getVenue(eventId: string): Promise<string> {
+  async getVenue(eventId: string): Promise<string> {
     return this.getJsonFromApi('venue?event='+encodeURIComponent(eventId));
   }
 
-  getPosters(eventId: string): Promise<string> {
+  async getPosters(eventId: string): Promise<string> {
     return this.getJsonFromApi('posters?event='+encodeURIComponent(eventId));
   }
 
@@ -51,11 +51,19 @@ export class DeadApiService {
     return this.getJsonFromApi('performers?event='+encodeURIComponent(eventId));
   }
 
-  getEtreeInfo(recordingId: string): Promise<{}>  {
+  getEtreeInfo(recordingId: string): Promise<{}> {
     return this.getJsonFromApi('etreeinfo?recording='+encodeURIComponent(recordingId));
   }
 
-  getJsonFromApi(path: string): Promise<{}> {
+  getFeatureSummary(audioUri: string): Promise<{}> {
+    return this.getJsonFromApi('featuresummary?audiouri='+encodeURIComponent(audioUri));
+  }
+
+  getDiachronic(songName: string): Promise<{}> {
+    return this.getJsonFromApi('diachronic?songname='+encodeURIComponent(songName));
+  }
+
+  getJsonFromApi(path: string): Promise<any> {
     return fetch(this.API_URL+path)
       .then(r => r.text())
       .then(t => JSON.parse(t))

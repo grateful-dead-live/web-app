@@ -7,8 +7,11 @@ import "rxjs/add/operator/takeWhile";
 import "rxjs/add/operator/startWith";
 
 import { DeadApiService, DeadEvent } from './dead-api.service';
+import { DeadFeatureService } from './feature.service';
 import {MdDialogRef, MdDialog, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from './modal.component';
+
+import { Plunderphonics } from './plunderphonics';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +36,9 @@ export class AppComponent {
   private etreeinfo;
 
 
-  constructor(private dialog: MdDialog, private apiService: DeadApiService, private observableMedia: ObservableMedia, private sanitizer: DomSanitizer) {
+  constructor(private dialog: MdDialog, private apiService: DeadApiService,
+      private featureService: DeadFeatureService,
+      private observableMedia: ObservableMedia, private sanitizer: DomSanitizer) {
     this.apiService.getEvents()
       // .then(e => this.events = e.sort())
       .then(e => this.events = e.sort((a, b) => parseFloat(a.date) - parseFloat(b.date)) )
@@ -42,10 +47,11 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    const grid = {"xs": 1, "sm": 2, "md": 2, "lg": 3, "xl": 4};
+    const grid = {"xs": 1, "sm": 2, "md": 3, "lg": 4, "xl": 5};
     this.cols = this.observableMedia.asObservable()
       .map(change => grid[change.mqAlias])
       .startWith(3);
+    new Plunderphonics(this.apiService, this.featureService).play();
   }
 
   eventSelected(event: DeadEvent) {
