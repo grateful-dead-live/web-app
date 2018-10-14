@@ -11,8 +11,6 @@ import { DeadFeatureService } from './feature.service';
 import {MdDialogRef, MdDialog, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from './modal.component';
 
-import { Plunderphonics } from './plunderphonics';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -51,7 +49,6 @@ export class AppComponent {
     this.cols = this.observableMedia.asObservable()
       .map(change => grid[change.mqAlias])
       .startWith(3);
-    new Plunderphonics(this.apiService, this.featureService).play();
   }
 
   eventSelected(event: DeadEvent) {
@@ -73,7 +70,6 @@ export class AppComponent {
     this.apiService.getEtreeInfo(this.selectedRec.id).then(e => this.etreeinfo = e);
   }
 
-
   private initRecordings(ids: string[]) {
     this.recordings = ids.map(r => ({id:r}));
     this.recordings.forEach(r =>
@@ -87,4 +83,5 @@ export class AppComponent {
       panelClass: 'app-custom-dialog',
       data: clickedImage });
   }
+
 }

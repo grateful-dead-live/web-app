@@ -59,7 +59,7 @@ export class DeadApiService {
     return this.getJsonFromApi('featuresummary?audiouri='+encodeURIComponent(audioUri));
   }
 
-  getDiachronic(songName: string): Promise<{}> {
+  getDiachronicVersionsAudio(songName: string): Promise<string[]> {
     return this.getJsonFromApi('diachronic?songname='+encodeURIComponent(songName));
   }
 
@@ -69,4 +69,5 @@ export class DeadApiService {
       .then(t => JSON.parse(t))
       .catch(e => console.log(e));
   }
+
 }
