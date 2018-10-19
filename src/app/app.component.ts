@@ -7,7 +7,6 @@ import "rxjs/add/operator/takeWhile";
 import "rxjs/add/operator/startWith";
 
 import { DeadApiService, DeadEvent } from './dead-api.service';
-import { DeadFeatureService } from './feature.service';
 import {MdDialogRef, MdDialog, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from './modal.component';
 
@@ -35,7 +34,6 @@ export class AppComponent {
 
 
   constructor(private dialog: MdDialog, private apiService: DeadApiService,
-      private featureService: DeadFeatureService,
       private observableMedia: ObservableMedia, private sanitizer: DomSanitizer) {
     this.apiService.getEvents()
       // .then(e => this.events = e.sort())

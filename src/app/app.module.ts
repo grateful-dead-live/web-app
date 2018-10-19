@@ -10,7 +10,6 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { DateAxis } from './date-axis.component';
 import { DeadApiService } from './dead-api.service';
-import { DeadFeatureService } from './feature.service';
 
 import { MdDialogModule } from '@angular/material';
 import { DialogComponent } from './modal.component';
@@ -47,7 +46,7 @@ import { DialogComponent } from './modal.component';
     MdDialogModule
 
   ],
-  providers: [DeadApiService,DeadFeatureService],
+  providers: [DeadApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
