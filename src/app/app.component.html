@@ -1,6 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <md-toolbar class="black">
-  <button md-button [mdMenuTriggerFor]="menu"><h1>the <img src="assets/gd_logo1.png" height="50" align="middle"> concert explorer</h1></button>
+  <!-- <button md-button [mdMenuTriggerFor]="menu"><h1>the <img src="assets/gd_logo1.png" height="50" align="middle"> concert explorer</h1></button> -->
+  <button md-button [mdMenuTriggerFor]="menu"> <img src="assets/gd_logo1.png" height="50" align="middle"> </button>
   <md-menu #menu="mdMenu">
     <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
   </md-menu>
