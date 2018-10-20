@@ -2,8 +2,11 @@
 <md-toolbar class="black">
   <button md-button [mdMenuTriggerFor]="menu"> <img src="assets/gd_logo1.png" height="50" align="middle"> </button>
   <md-menu #menu="mdMenu">
+      <div class="menu-container">
     <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
+  </div>
   </md-menu>
+  
   <!--img src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg"-->
   <md-toolbar-row *ngIf="selectedEvent">
     <span>{{ selectedEvent.date }} {{ selectedEvent.location }}</span>
@@ -22,7 +25,9 @@
       </md-card-header>
       <button md-button [mdMenuTriggerFor]="locmenu">{{ location.name }} </button>
       <md-menu #locmenu="mdMenu">
+          <div class="menu-container">
         <button md-menu-item *ngFor="let e of location.events" (click)="eventSelected(e)">{{ e.date }} {{ e.venue }}</button>
+      </div>
       </md-menu>
       <img md-card-image src="{{ location.thumbnail }}" (click)="openDialog(location.image)">
       <md-card-content>{{ location.comment }}</md-card-content>
@@ -41,7 +46,9 @@
 
       <button md-button [mdMenuTriggerFor]="venmenu">{{ venue.name }} </button>
       <md-menu #venmenu="mdMenu">
+          <div class="menu-container">
         <button md-menu-item *ngFor="let e of venue.events" (click)="eventSelected(e)">{{ e.date }}</button>
+      </div>
       </md-menu>
 
       <!--md-card-content>({{ venue.sameas }})</md-card-content-->
@@ -102,8 +109,10 @@
   <div *ngFor="let s of setlist">
       <button md-button [mdMenuTriggerFor]="setmenu">{{ s.name }}</button>
       <md-menu #setmenu="mdMenu">
+          <div class="menu-container">
           <button md-menu-item *ngFor="let e of s.events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
-      </md-menu>
+          </div>
+        </md-menu>
   </div>
       </md-card-content>
     </md-card>

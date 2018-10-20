@@ -1,7 +1,7 @@
 .gd-card {
-  border-radius: 10px;
+  /* border-radius: 10px; */
   /* border: 3px solid #E91C2C; */
-  border: 3px solid rgb(59, 59, 59); 
+  border: 1px solid rgb(71, 71, 71); 
   background: rgb(59, 59, 59);
   margin: auto;
   width: 100%;
@@ -64,3 +64,9 @@ button {
 md-toolbar.black{
   background-color: black;
 }
+
+
+.menu-container {
+  max-height: 500px; 
+}
+
