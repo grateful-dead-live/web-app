@@ -55,17 +55,23 @@ button {
   font-size: 13px ;
   line-height: 0px; 
   /* background-color: #2358AC */
-
 }
 
 md-toolbar.black{
   /*background-color: black;*/
   /*background-image: url("../assets/tie-dye.jpg"); */
   background-color: transparent;
+  
 }
-
 
 .menu-container {
   max-height: 500px; 
 }
 
+date-axis {
+  cursor: pointer;
+}
+
+* {
+  cursor: url('../assets/bearcursor_small.png'), auto;
+}
