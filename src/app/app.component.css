@@ -63,8 +63,8 @@ button {
 
 md-toolbar.black{
   /*background-color: black;*/
-  background-image: url("../assets/tie-dye.jpg"); 
-
+  /*background-image: url("../assets/tie-dye.jpg"); */
+  background-color: transparent;
 }
 
 

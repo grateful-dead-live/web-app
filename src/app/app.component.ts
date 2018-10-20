@@ -37,7 +37,7 @@ export class AppComponent {
       private observableMedia: ObservableMedia, private sanitizer: DomSanitizer) {
     this.apiService.getEvents()
       // .then(e => this.events = e.sort())
-      .then(e => this.events = e.sort((a, b) => parseFloat(a.date) - parseFloat(b.date)) )
+      .then(e => this.events = e.sort((a, b) => parseFloat(a.date.replace(/-/g, '')) - parseFloat(b.date.replace(/-/g, ''))) )
       .then(() => this.eventSelected(this.events[Math.floor(Math.random()*this.events.length)]))
 
   }
