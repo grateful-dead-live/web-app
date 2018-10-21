@@ -7,7 +7,7 @@
   
   <!--img src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg"-->
   <md-toolbar-row *ngIf="selectedEvent">
-      <button class="main-button" md-button [mdMenuTriggerFor]="menu"><span>{{ selectedEvent.date }} {{ selectedEvent.location }}</span> </button>
+      <button class="main-button" md-button [mdMenuTriggerFor]="menu">{{ selectedEvent.date }} {{ selectedEvent.location }} </button>
       <md-menu #menu="mdMenu">
           <div class="menu-container">
         <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
