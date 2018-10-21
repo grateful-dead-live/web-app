@@ -1,15 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <md-toolbar class="black">
-  <button md-button [mdMenuTriggerFor]="menu"> <img src="assets/gd_logo1.png" height="50" align="middle"> </button>
+  <img src="assets/gd_logo1.png" height="50" align="middle">
   <md-menu #menu="mdMenu">
-      <div class="menu-container">
-    <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
-  </div>
+      
   </md-menu>
   
   <!--img src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg"-->
   <md-toolbar-row *ngIf="selectedEvent">
-    <span>{{ selectedEvent.date }} {{ selectedEvent.location }}</span>
+      <button class="main-button" md-button [mdMenuTriggerFor]="menu"><span>{{ selectedEvent.date }} {{ selectedEvent.location }}</span> </button>
+      <md-menu #menu="mdMenu">
+          <div class="menu-container">
+        <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
+      </div>
+      </md-menu>
   </md-toolbar-row>
 </md-toolbar>
 
