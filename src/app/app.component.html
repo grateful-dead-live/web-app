@@ -90,9 +90,9 @@
         <md-card-title>Weather</md-card-title>
       </md-card-header>
       <md-card-content>
-        <h3>max. temperature: {{ weather.maxTemperature }}°C<br>
-          precipitation: {{ weather.precipitation }}mm<br>
-          wind: {{ weather.wind }}km/h {{weather.wind_direction}}
+        <h3>max. temperature: {{ weather.maxTemperature }} °F<br>
+          precipitation: {{ weather.precipitation }} in<br>
+          wind: {{ weather.wind }} mph {{weather.wind_direction}}
         </h3>
         
 
@@ -189,7 +189,7 @@
         </md-card-header>
         <div *ngFor="let e of etreeinfo.tracks; let i = index">
            <span>track {{i+1}}</span>
-           <img md-card-image src="{{ 'https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png' }}" (click)="openDialog('https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png')">
+           <img class="img-click" md-card-image src="{{ 'https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png' }}" (click)="openDialog('https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png')">
         </div>
       </md-card>
     </md-grid-tile>

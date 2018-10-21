@@ -1,6 +1,5 @@
 .gd-card {
   border-radius: 3px; 
-  /* border: 3px solid #E91C2C; */
   background: rgb(1, 6, 32, 0.6); 
   margin: auto;
   width: 100%;
@@ -29,7 +28,6 @@ h4 {
 
 div.gallery {
   margin: 5px;
-  /* border: 1px solid #ccc; */
   float: left;
   width: 180px;
 }
@@ -54,12 +52,9 @@ button {
   min-width: 20px ;
   font-size: 15px ;
   line-height: 0px; 
-  /* background-color: #2358AC */
 }
 
 md-toolbar.black{
-  /*background-color: black;*/
-  /*background-color: transparent;*/
   background: rgb(1, 6, 32, 0.6); 
 }
 
@@ -69,7 +64,6 @@ md-toolbar.black{
 
 date-axis {
   cursor: pointer;
-  background: rgb(1, 6, 32, 0.6);
 }
 
 * {
@@ -81,7 +75,6 @@ date-axis {
   min-width: 20px ;
   font-size: 21px ;
   line-height: 0px;
-  /*background-color: rgb(1, 6, 32, 0.6) ;*/
   border-radius: 3px;
 }
 
