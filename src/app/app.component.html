@@ -32,7 +32,7 @@
         <button md-menu-item *ngFor="let e of location.events" (click)="eventSelected(e)">{{ e.date }} {{ e.venue }}</button>
       </div>
       </md-menu>
-      <img md-card-image src="{{ location.thumbnail }}" (click)="openDialog(location.image)">
+      <img class="img-click" md-card-image src="{{ location.thumbnail }}" (click)="openDialog(location.image)">
       <md-card-content>{{ location.comment }}</md-card-content>
       <agm-map *ngIf="location.geoloc" [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long" [zoom]="9"  [scrollwheel]=false>
         <agm-marker [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long"></agm-marker>
@@ -55,7 +55,7 @@
       </md-menu>
 
       <!--md-card-content>({{ venue.sameas }})</md-card-content-->
-      <img md-card-image src="{{ venue.thumbnail }}" (click)="openDialog(venue.image)">
+      <img class="img-click" md-card-image src="{{ venue.thumbnail }}" (click)="openDialog(venue.image)">
       <md-card-content>{{ venue.comment }}</md-card-content>
       <agm-map *ngIf="venue.geoloc" [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long" [zoom]="12" [scrollwheel]=false>
         <agm-marker [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long"></agm-marker>
@@ -69,7 +69,7 @@
         <md-card-title>Ticket</md-card-title>
       </md-card-header>
       <!--<button mat-raised-button (click)="openDialog()">Pick one</button>-->
-      <img md-card-image *ngFor="let t of tickets" src="{{ t }}" (click)="openDialog(t)">
+      <img class="img-click" md-card-image *ngFor="let t of tickets" src="{{ t }}" (click)="openDialog(t)">
     </md-card>
 
   </md-grid-tile>
@@ -78,7 +78,7 @@
       <md-card-header>
         <md-card-title>Poster</md-card-title>
       </md-card-header>
-      <img md-card-image *ngFor="let p of posters" src="{{ p }}" (click)="openDialog(p)">
+      <img class="img-click" md-card-image *ngFor="let p of posters" src="{{ p }}" (click)="openDialog(p)">
 
 
 
@@ -130,7 +130,7 @@
           <md-grid-list [cols]="2">
               <md-grid-tile *ngFor="let p of performers">
                   <div class="gallery">
-                    <img src="{{ p.thumbnail }}" (click)="openDialog(p.image)">
+                    <img  class="img-click" src="{{ p.thumbnail }}" (click)="openDialog(p.image)">
                     <div class="desc">{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
                   </div>
                 </md-grid-tile>

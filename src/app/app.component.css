@@ -87,3 +87,7 @@ date-axis {
 .tile-button{
   text-decoration: underline;
 }
+
+.img-click{
+  cursor: pointer;
+}
