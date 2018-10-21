@@ -26,7 +26,7 @@
         <md-card-title>Location</md-card-title>
          <!-- <md-card-subtitle>{{ location.name }}</md-card-subtitle>  -->
       </md-card-header>
-      <button md-button [mdMenuTriggerFor]="locmenu">{{ location.name }} </button>
+      <button class="tile-button" md-button [mdMenuTriggerFor]="locmenu">{{ location.name }} </button>
       <md-menu #locmenu="mdMenu">
           <div class="menu-container">
         <button md-menu-item *ngFor="let e of location.events" (click)="eventSelected(e)">{{ e.date }} {{ e.venue }}</button>
@@ -47,7 +47,7 @@
         <!-- <md-card-subtitle>{{ venue.name }}</md-card-subtitle> -->
       </md-card-header>
 
-      <button md-button [mdMenuTriggerFor]="venmenu">{{ venue.name }} </button>
+      <button class="tile-button" md-button [mdMenuTriggerFor]="venmenu">{{ venue.name }} </button>
       <md-menu #venmenu="mdMenu">
           <div class="menu-container">
         <button md-menu-item *ngFor="let e of venue.events" (click)="eventSelected(e)">{{ e.date }}</button>
