@@ -32,7 +32,7 @@ export class DateAxis implements OnInit, OnChanges {
       this.svg = d3.select(this.element).append('svg')
         .attr('width', this.element.offsetWidth)
         .attr('height', this.height)
-        .style("background-color", "transparent");
+        .style('background-color', 'rgb(' + 1 + ',' + 6 + ',' + 32 + ', 0.6)');
       this.updateVisuals();
     }
   }

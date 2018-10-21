@@ -59,8 +59,8 @@ button {
 
 md-toolbar.black{
   /*background-color: black;*/
-  /*background-image: url("../assets/tie-dye.jpg"); */
-  background-color: transparent;
+  /*background-color: transparent;*/
+  background: rgb(1, 6, 32, 0.6); 
 }
 
 .menu-container {
@@ -69,6 +69,7 @@ md-toolbar.black{
 
 date-axis {
   cursor: pointer;
+  background: rgb(1, 6, 32, 0.6);
 }
 
 * {
@@ -80,7 +81,7 @@ date-axis {
   min-width: 20px ;
   font-size: 21px ;
   line-height: 0px;
-  background-color: rgb(1, 6, 32, 0.6) ;
+  /*background-color: rgb(1, 6, 32, 0.6) ;*/
   border-radius: 3px;
 }
 
