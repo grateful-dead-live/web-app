@@ -16,7 +16,9 @@
   <md-grid-tile *ngIf="location">
     <md-card>
       <md-card-header>
-        <md-card-title>Location</md-card-title>
+        <md-card-title>
+          <h1>LOCATION</h1>
+        </md-card-title>
         <md-card-subtitle>
           <button class="tile-button" md-button [mdMenuTriggerFor]="locmenu">{{ location.name }} </button>
           <md-menu [overlapTrigger]="false" #locmenu="mdMenu">
@@ -43,7 +45,9 @@
   <md-grid-tile *ngIf="venue">
     <md-card>
       <md-card-header>
-        <md-card-title>Venue</md-card-title>
+        <md-card-title>
+          <h1>VENUE</h1>
+        </md-card-title>
         <md-card-subtitle>
           <button class="tile-button" md-button [mdMenuTriggerFor]="venmenu">{{ venue.name }} </button>
           <md-menu [overlapTrigger]="false" #venmenu="mdMenu">
@@ -54,12 +58,14 @@
         </md-card-subtitle>
       </md-card-header>
       <md-card class="gd-card">
-        <img class="img-click" md-card-image src="{{ venue.thumbnail }}" (click)="openDialog(venue.image)">
-        <md-card-content>{{ venue.comment }}</md-card-content>
-        <agm-map *ngIf="venue.geoloc" [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long" [zoom]="12"
-          [scrollwheel]=false>
-          <agm-marker [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long"></agm-marker>
-        </agm-map>
+        <md-card-content>
+          <img class="img-click" md-card-image src="{{ venue.thumbnail }}" (click)="openDialog(venue.image)">
+          <md-card-content>{{ venue.comment }}</md-card-content>
+          <agm-map *ngIf="venue.geoloc" [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long" [zoom]="12"
+            [scrollwheel]=false>
+            <agm-marker [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long"></agm-marker>
+          </agm-map>
+        </md-card-content>
       </md-card>
     </md-card>
   </md-grid-tile>
@@ -67,10 +73,14 @@
   <md-grid-tile *ngIf="tickets&&tickets.length > 0">
     <md-card>
       <md-card-header>
-        <md-card-title>Ticket</md-card-title>
+        <md-card-title>
+          <h1>TICKET</h1>
+        </md-card-title>
       </md-card-header>
       <md-card class="gd-card">
-        <img class="img-click" md-card-image *ngFor="let t of tickets" src="{{ t }}" (click)="openDialog(t)">
+        <md-card-content>
+          <img class="img-click" md-card-image *ngFor="let t of tickets" src="{{ t }}" (click)="openDialog(t)">
+        </md-card-content>
       </md-card>
     </md-card>
   </md-grid-tile>
@@ -81,7 +91,9 @@
         <md-card-title>Poster</md-card-title>
       </md-card-header>
       <md-card class="gd-card">
-        <img class="img-click" md-card-image *ngFor="let p of posters" src="{{ p }}" (click)="openDialog(p)">
+        <md-card-content>
+          <img class="img-click" md-card-image *ngFor="let p of posters" src="{{ p }}" (click)="openDialog(p)">
+        </md-card-content>
       </md-card>
     </md-card>
   </md-grid-tile>
@@ -89,7 +101,9 @@
   <md-grid-tile *ngIf="weather">
     <md-card>
       <md-card-header>
-        <md-card-title>Weather</md-card-title>
+        <md-card-title>
+          <h1>WEATHER</h1>
+        </md-card-title>
       </md-card-header>
       <md-card class="gd-card">
         <md-card-content>
@@ -105,7 +119,9 @@
   <md-grid-tile *ngIf="setlist">
     <md-card>
       <md-card-header>
-        <md-card-title>Setlist</md-card-title>
+        <md-card-title>
+          <h1>SETLIST</h1>
+        </md-card-title>
       </md-card-header>
       <md-card class="gd-card">
         <md-card-content>
@@ -126,7 +142,9 @@
   <md-grid-tile *ngIf="performers&&performers.length > 0">
     <md-card>
       <md-card-header>
-        <md-card-title>Performers</md-card-title>
+        <md-card-title>
+          <h1>PERFORMERS</h1>
+        </md-card-title>
       </md-card-header>
       <md-card class="gd-card">
         <md-card-content>
@@ -146,15 +164,19 @@
   <md-grid-tile *ngIf="recordings&&recordings.length > 0">
     <md-card>
       <md-card-header>
-        <md-card-title>Recordings</md-card-title>
+        <md-card-title>
+          <h1>RECORDINGS</h1>
+        </md-card-title>
       </md-card-header>
       <md-card class="gd-card">
-        <md-select [(ngModel)]="selectedRec" [style.width]="'100%'" (ngModelChange)="recordingSelected()">
-          <md-option *ngFor="let r of recordings" [value]="r">
-            {{ r.id }}
-          </md-option>
-        </md-select>
-        <iframe [src]="selectedRec.url" [style.width]="'100%'" height="1000" frameborder="0"></iframe>
+        <md-card-content>
+          <md-select [(ngModel)]="selectedRec" [style.width]="'100%'" (ngModelChange)="recordingSelected()">
+            <md-option *ngFor="let r of recordings" [value]="r">
+              {{ r.id }}
+            </md-option>
+          </md-select>
+          <iframe [src]="selectedRec.url" [style.width]="'100%'" height="1000" frameborder="0"></iframe>
+        </md-card-content>
       </md-card>
     </md-card>
   </md-grid-tile>
@@ -162,16 +184,20 @@
   <md-grid-tile *ngIf="etreeinfo&&etreeinfo.notes != 'n/a'">
     <md-card>
       <md-card-header>
-        <md-card-title>Recording Info</md-card-title>
+        <md-card-title>
+          <h1>RECORDING INFO</h1>
+        </md-card-title>
       </md-card-header>
       <md-card class="gd-card">
-        <div *ngIf="etreeinfo">
-          <h4>ID:<br />{{ etreeinfo.id }}</h4>
-          <h4>SOURCE:<br />{{ etreeinfo.source }}</h4>
-          <h4>LINEAGE:<br />{{ etreeinfo.lineage }}</h4>
-          <h4>NOTES:<br />{{ etreeinfo.notes }}</h4>
-          <h4>KEYWORDS:<br />{{ etreeinfo.keywords }}</h4>
-        </div>
+        <md-card-content>
+          <div *ngIf="etreeinfo">
+            <h4>ID:<br />{{ etreeinfo.id }}</h4>
+            <h4>SOURCE:<br />{{ etreeinfo.source }}</h4>
+            <h4>LINEAGE:<br />{{ etreeinfo.lineage }}</h4>
+            <h4>NOTES:<br />{{ etreeinfo.notes }}</h4>
+            <h4>KEYWORDS:<br />{{ etreeinfo.keywords }}</h4>
+          </div>
+        </md-card-content>
       </md-card>
     </md-card>
   </md-grid-tile>
@@ -179,14 +205,18 @@
   <md-grid-tile *ngIf="etreeinfo&&etreeinfo.tracks != 'n/a'">
     <md-card>
       <md-card-header>
-        <md-card-title>Spectrograms</md-card-title>
+        <md-card-title>
+          <h1>SPECTROGRAMS</h1>
+        </md-card-title>
       </md-card-header>
       <md-card class="gd-card">
-        <div *ngFor="let e of etreeinfo.tracks; let i = index">
-          <span>track {{i+1}}</span>
-          <img class="img-click" md-card-image src="{{ 'https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png' }}"
-            (click)="openDialog('https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png')">
-        </div>
+        <md-card-content>
+          <div *ngFor="let e of etreeinfo.tracks; let i = index">
+            <span>track {{i+1}}</span>
+            <img class="img-click" md-card-image src="{{ 'https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png' }}"
+              (click)="openDialog('https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png')">
+          </div>
+        </md-card-content>
       </md-card>
     </md-card>
   </md-grid-tile>
