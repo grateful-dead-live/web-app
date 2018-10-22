@@ -1,187 +1,178 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <md-toolbar class="black">
-  <button md-button [mdMenuTriggerFor]="menu"><h1>the <img src="assets/gd_logo1.png" height="50" align="middle"> concert explorer</h1></button>
-  <md-menu #menu="mdMenu">
-    <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
-  </md-menu>
+<img src="assets/gd_logo1.png" height="50" align="middle" class="u-mt">
   <!--img src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg"-->
+  <md-toolbar-row *ngIf="selectedEvent" class="u-mt mat-toolbar-row--slim u-mb u-mtbig">
+    <button md-button [mdMenuTriggerFor]="menu" class="u-inline-block u-button--bold">Location and date</button><!--
+  --><div class="u-inline-block">
+      <svg xmlns="http://www.w3.org/2000/svg" class="c-icon" data-name="Layer 1" viewBox="0 0 25.8 25.8">
+        <path d="M25.84 23.68l-5-5a11.64 11.64 0 1 0-2.12 2.12l5 5zM5.52 17.74a8.64 8.64 0 1 1 12.21 0 8.65 8.65 0 0 1-12.21 0z" fill="#ffffff" class="c-site-search__icon"/>
+      </svg>
+    </div>
+    <md-menu #menu="mdMenu">
+      <button md-menu-item>
+        <span class="u-inline-block u-button__date">Date</span><!--
+        --><span class="u-inline-block">Location</span>
+    </button>
+      <!-- <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location | replaceUnderscores }}</button> -->
+      <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">
+        <span class="u-inline-block u-button__date">{{ e.date }}</span><!--
+        --><span class="u-inline-block">{{ e.location | replaceUnderscores }}</span>
+    </button>
+    </md-menu>
+  </md-toolbar-row>
   <md-toolbar-row *ngIf="selectedEvent">
-    <span>{{ selectedEvent.date }} {{ selectedEvent.location }}</span>
+    <h1 class="u-heading u-title u-h1">{{ selectedEvent.location | replaceUnderscores }}</h1>
+  </md-toolbar-row>
+  <md-toolbar-row *ngIf="selectedEvent" class="mat-toolbar-row--slim">
+    <div class="u-subtitle">{{ selectedEvent.date | formatDate }} </div>
   </md-toolbar-row>
 </md-toolbar>
-
-<md-grid-list [cols]="cols | async" rowHeight="400px">
-  <md-grid-tile *ngIf="location">
-     <!--<md-grid-tile-header>
-          <h3><font color="red">This is some text!</font></h3>
-        </md-grid-tile-header> -->
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Location</md-card-title>
-         <!-- <md-card-subtitle>{{ location.name }}</md-card-subtitle>  -->
-      </md-card-header>
-      <button md-button [mdMenuTriggerFor]="locmenu">{{ location.name }} </button>
-      <md-menu #locmenu="mdMenu">
-        <button md-menu-item *ngFor="let e of location.events" (click)="eventSelected(e)">{{ e.date }} {{ e.venue }}</button>
-      </md-menu>
-      <img md-card-image src="{{ location.thumbnail }}" (click)="openDialog(location.image)">
-      <md-card-content>{{ location.comment }}</md-card-content>
-      <agm-map *ngIf="location.geoloc" [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long" [zoom]="9"  [scrollwheel]=false>
-        <agm-marker [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long"></agm-marker>
-      </agm-map>
-   
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile *ngIf="venue">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Venue</md-card-title>
-        <!-- <md-card-subtitle>{{ venue.name }}</md-card-subtitle> -->
-      </md-card-header>
-
-      <button md-button [mdMenuTriggerFor]="venmenu">{{ venue.name }} </button>
-      <md-menu #venmenu="mdMenu">
-        <button md-menu-item *ngFor="let e of venue.events" (click)="eventSelected(e)">{{ e.date }}</button>
-      </md-menu>
-
-      <!--md-card-content>({{ venue.sameas }})</md-card-content-->
-      <img md-card-image src="{{ venue.thumbnail }}" (click)="openDialog(venue.image)">
-      <md-card-content>{{ venue.comment }}</md-card-content>
-      <agm-map *ngIf="venue.geoloc" [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long" [zoom]="12" [scrollwheel]=false>
-        <agm-marker [latitude]="venue.geoloc.lat" [longitude]="venue.geoloc.long"></agm-marker>
-      </agm-map>
-      
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile *ngIf="tickets&&tickets.length > 0">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Ticket</md-card-title>
-      </md-card-header>
-      <!--<button mat-raised-button (click)="openDialog()">Pick one</button>-->
-      <img md-card-image *ngFor="let t of tickets" src="{{ t }}" (click)="openDialog(t)">
-    </md-card>
-
-  </md-grid-tile>
-  <md-grid-tile *ngIf="posters&&posters.length > 0">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Poster</md-card-title>
-      </md-card-header>
-      <img md-card-image *ngFor="let p of posters" src="{{ p }}" (click)="openDialog(p)">
-
-
-
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile *ngIf="weather">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Weather</md-card-title>
-      </md-card-header>
-      <md-card-content>
-        <h3>max. temperature: {{ weather.maxTemperature }}°C<br>
-          precipitation: {{ weather.precipitation }}mm<br>
-          wind: {{ weather.wind }}km/h {{weather.wind_direction}}
-        </h3>
-        
-
-      </md-card-content>
-    </md-card>
-  </md-grid-tile>
-
-  <md-grid-tile *ngIf="setlist">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Setlist</md-card-title>
-      </md-card-header>
-      <md-card-content>
-<!--<div *ngFor="let s of setlist">{{ s.name }}</div> -->
-
-
-  <div *ngFor="let s of setlist">
-      <button md-button [mdMenuTriggerFor]="setmenu">{{ s.name }}</button>
-      <md-menu #setmenu="mdMenu">
-          <button md-menu-item *ngFor="let e of s.events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
-      </md-menu>
+<div class="banner">
+  <div class="banner__content" *ngIf="location">
+    <img *ngIf="location" class="banner__image" src="{{ location.image }}">
   </div>
-      </md-card-content>
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile *ngIf="performers&&performers.length > 0">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Performers</md-card-title>
-      </md-card-header>
-      <md-card-content>
+</div>
+<div class='container t-white u-wrapper u-wrapper--first' fxLayout="row" fxLayout.xs="row" fxLayoutWrap fxLayoutAlign="center" *ngIf="selectedEvent">
+    <div fxFlex.xs="100%" fxFlex="65%" class="u-layout__item u-pb">
+      <md-tab-group>
+        <md-tab label="Recordings">
+        <!-- Start tab -->
+          <div *ngIf="recordings&&recordings.length > 0" class="top-card">
+            <md-select [(ngModel)]="selectedRec" [style.width]="'100%'" (ngModelChange)="recordingSelected()">
+              <md-option *ngFor="let r of recordings" [value]="r">
+                {{ r.id }}
+              </md-option>
+            </md-select>
+            <iframe [src]="selectedRec.url" [style.width]="'100%'" height="350" frameborder="0" style="margin: 0"></iframe>
+            <div class="u-pt" *ngIf="etreeinfo&&etreeinfo.notes != 'n/a'">
+              <div *ngIf="etreeinfo">
+                <h4 class="u-mb0">Recording ID:</h4>
+                <div class="u-copy">{{ etreeinfo.id }}</div>
 
-          <md-grid-list [cols]="2">
-              <md-grid-tile *ngFor="let p of performers">
-                  <div class="gallery">
-                    <img src="{{ p.thumbnail }}" (click)="openDialog(p.image)">
-                    <div class="desc">{{ p.name }} ({{ p.instruments.join(', ') }}) </div>
-                  </div>
-                </md-grid-tile>
-              </md-grid-list>
-          
+                <h4 class="u-mb0">Source:</h4>
+                <div class="u-copy">{{ etreeinfo.source }}</div>
 
-        <!--
-        <md-grid-list [cols]="3">
-          <md-grid-tile *ngFor="let i of performerImages">
-            <img src="{{ i }}" width="100%">
-          </md-grid-tile>
-        </md-grid-list>
-        <div *ngFor="let p of performers">{{ p.name }} ({{ p.instruments.join(', ') }})</div>
-        <p>-------</p>
-        -->
+                <h4 class="u-mb0">Lineage:</h4>
+                <div class="u-copy">{{ etreeinfo.lineage }}</div>
 
+                <h4 class="u-mb0">Notes:</h4>
+                <div class="u-copy">{{ etreeinfo.notes }}</div>
 
-      </md-card-content>
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile *ngIf="recordings&&recordings.length > 0">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Recordings</md-card-title>
-      </md-card-header>
-      <md-select [(ngModel)]="selectedRec" [style.width]="'100%'" (ngModelChange)="recordingSelected()">
-        <md-option *ngFor="let r of recordings" [value]="r">
-          {{ r.id }}
-        </md-option>
-      </md-select>
-      <iframe [src]="selectedRec.url" [style.width]="'100%'" height="1000" frameborder="0"></iframe>
-
-    </md-card>
-  </md-grid-tile>
-
-  <md-grid-tile *ngIf="etreeinfo&&etreeinfo.notes != 'n/a'">
-    <md-card class="gd-card">
-      <md-card-header>
-        <md-card-title>Recording Info</md-card-title>
-      </md-card-header>
-      <div *ngIf="etreeinfo">
-        <h4>ID:<br />{{ etreeinfo.id }}</h4>
-        <h4>SOURCE:<br />{{ etreeinfo.source }}</h4>
-        <h4>LINEAGE:<br />{{ etreeinfo.lineage }}</h4>
-        <h4>NOTES:<br />{{ etreeinfo.notes }}</h4>
-        <h4>KEYWORDS:<br />{{ etreeinfo.keywords }}</h4>
-      </div>
-    </md-card>
-  </md-grid-tile>
-
-
-  <md-grid-tile *ngIf="etreeinfo&&etreeinfo.tracks != 'n/a'">
-      <md-card class="gd-card">
-        <md-card-header>
-          <md-card-title>Spectrograms</md-card-title>
-        </md-card-header>
-        <div *ngFor="let e of etreeinfo.tracks; let i = index">
-           <span>track {{i+1}}</span>
-           <img md-card-image src="{{ 'https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png' }}" (click)="openDialog('https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png')">
+                <h4 class="u-mb0">Keywords:</h4>
+                <div class="u-copy">{{ etreeinfo.keywords }}</div>
+              </div>
+            </div>
+          </div>
+        <!-- End tab -->
+        </md-tab>
+        <md-tab label="Setlist">
+          <!-- Start tab -->
+          <div class="tab-wrapper">
+            <div *ngFor="let s of setlist">
+              <button md-button [mdMenuTriggerFor]="setmenu" class="u-pv mat-button--setlist">{{ s.name }}</button>
+              <md-menu #setmenu="mdMenu">
+                <button md-menu-item *ngFor="let e of s.events" (click)="eventSelected(e)" class="c-search__icon">
+                  <span class="u-inline-block u-button__date">{{ e.date }}</span><!--
+                  --><span class="u-inline-block">{{ e.location | replaceUnderscores }}</span>
+                </button>
+              </md-menu>
+            </div>
+          </div>
+          <!-- End tab -->
+        </md-tab>
+        <md-tab label="Spectrograms" *ngIf="etreeinfo&&etreeinfo.tracks != 'n/a'">
+          <!-- Start tab -->
+          <div class="tab-wrapper">
+            <div *ngFor="let e of etreeinfo.tracks; let i = index">
+              <h4>Track {{i+1}}</h4>
+              <img class="u-image" src="{{ 'https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png' }}" (click)="openDialog('https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png')">
+            </div>
+          </div>
+          <!-- End tab -->
+        </md-tab>
+      </md-tab-group>
+  </div>
+  <div fxFlex.xs="100%" fxFlex="35%" class="u-layout__item u-pb">
+    <div *ngIf="performers&&performers.length > 0">
+      <h3 class="u-heading">Who played on this day</h3>
+      <div *ngFor="let p of performers" class="c-image__wrapper">
+        <div class="c-image--circular">
+          <img src="{{ p.thumbnail }}" (click)="openDialog(p.image)">
         </div>
-      </md-card>
-    </md-grid-tile>
+        <div class="c-image__description desc">
+          <h4 class="u-heading">{{ p.name }}</h4> 
+          <div class="u-copy">{{ p.instruments.join(', ') | replaceUnderscores }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="t-light u-pv u-pb30" *ngIf="selectedEvent">
+  <div class='container t-light u-wrapper u-pt' fxLayout="row" fxLayout.xs="row" fxLayoutWrap fxLayoutAlign="center">
+  <!-- LHS -->
+    <div fxFlex.xs="100%" fxFlex="65%" class="u-layout__item">
 
-</md-grid-list>
+      <div *ngIf="venue" class="u-pb">
+        <button md-button [mdMenuTriggerFor]="venmenu" class="u-inline-block u-button--bold">Venue</button><!--
+      --><div class="u-inline-block">
+          <svg xmlns="http://www.w3.org/2000/svg" class="c-icon" data-name="Layer 1" viewBox="0 0 25.8 25.8">
+            <path d="M25.84 23.68l-5-5a11.64 11.64 0 1 0-2.12 2.12l5 5zM5.52 17.74a8.64 8.64 0 1 1 12.21 0 8.65 8.65 0 0 1-12.21 0z" class="c-site-search__icon"/>
+          </svg>
+        </div>
+        <md-menu #venmenu="mdMenu">
+          <button md-menu-item *ngFor="let e of venue.events" (click)="eventSelected(e)">{{ e.date }}</button>
+        </md-menu>
 
-<date-axis [events]="events" [onClick]="eventSelected.bind(this)"></date-axis>
+        <h3 class="u-heading">{{ venue.name | replaceUnderscores }}</h3>
+        <div class="u-copy">{{ venue.comment }}</div>
+        <img class="u-mt u-image" src="{{ venue.thumbnail }}" (click)="openDialog(venue.image)">
+      </div>
+
+      <div *ngIf="location" class="u-pt">
+         <button md-button [mdMenuTriggerFor]="locmenu" class="u-inline-block u-button--bold">Location</button><!--
+      --><div class="u-inline-block">
+          <svg xmlns="http://www.w3.org/2000/svg" class="c-icon" data-name="Layer 1" viewBox="0 0 25.8 25.8">
+            <path d="M25.84 23.68l-5-5a11.64 11.64 0 1 0-2.12 2.12l5 5zM5.52 17.74a8.64 8.64 0 1 1 12.21 0 8.65 8.65 0 0 1-12.21 0z" class="c-site-search__icon"/>
+          </svg>
+        </div>
+        <md-menu #locmenu="mdMenu">
+          <button md-menu-item *ngFor="let e of location.events" (click)="eventSelected(e)">
+            <span class="u-inline-block u-button__date">{{ e.date }}</span><!--
+            --><span class="u-inline-block">{{ e.venue | replaceUnderscores }}</span>
+          </button>
+        </md-menu>
+
+        <h3 class="u-heading">{{ location.name | replaceUnderscores }}</h3>
+        <div class="u-copy u-pb">{{ location.comment }}</div>
+
+        <agm-map *ngIf="location.geoloc" [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long" [zoom]="9"  [scrollwheel]=false>
+          <agm-marker [latitude]="location.geoloc.lat" [longitude]="location.geoloc.long"></agm-marker>
+        </agm-map>
+
+      </div>
+    </div>
+    <!-- RHS -->
+    <div fxFlex.xs="100%" fxFlex="35%" class="u-layout__item">
+
+      <div *ngIf="posters&&posters.length > 0">
+        <h3 class="u-heading">Poster</h3>
+        <img class="u-image" *ngFor="let p of posters" src="{{ p }}" (click)="openDialog(p)">
+      </div>
+
+      <div *ngIf="tickets&&tickets.length > 0">
+        <h3 class="u-heading">Ticket</h3>
+        <img class="u-image" *ngFor="let t of tickets" src="{{ t }}" (click)="openDialog(t)">
+      </div>
+
+      <div *ngIf="weather">
+        <h3 class="u-heading">Weather</h3>
+        <h4>Temperature (max): {{ weather.maxTemperature }}°C</h4>
+        <h4>Precipitation: {{ weather.precipitation }}mm</h4>
+        <h4>Wind: {{ weather.wind }}km/h {{ weather.wind_direction }}</h4>
+      </div>
+
+    </div>
+  </div>
+</section>
+<date-axis class='u-date-axis' [events]="events" [onClick]="eventSelected.bind(this)"></date-axis>

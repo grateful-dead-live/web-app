@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MdGridListModule, MdCardModule, MdToolbarModule, MdMenuModule, MdButtonModule,
-  MdTooltipModule, MdSelectModule } from '@angular/material';
+  MdTooltipModule, MdSelectModule} from '@angular/material';
+import { MdTabsModule } from '@angular/material/tabs';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +16,8 @@ import { DeadFeatureService } from './feature.service';
 
 import { MdDialogModule } from '@angular/material';
 import { DialogComponent } from './modal.component';
+import { ReplaceUnderscores } from './app.stringFormatter';
+import { DateFormatter } from './app.dateFormatter';
 
 //import { DialogResultExample, DialogResultExampleDialog } from './modal.component';
 
@@ -25,8 +29,9 @@ import { DialogComponent } from './modal.component';
   declarations: [
     AppComponent,
     DateAxis,
-    DialogComponent
-
+    DialogComponent,
+    ReplaceUnderscores,
+    DateFormatter
 
   ],
   imports: [
@@ -38,6 +43,7 @@ import { DialogComponent } from './modal.component';
     MdButtonModule,
     MdTooltipModule,
     MdSelectModule,
+    MdTabsModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
@@ -45,7 +51,6 @@ import { DialogComponent } from './modal.component';
       apiKey: 'AIzaSyBhBOyzthOjvWKAhax_o1clQYSdoSQIkd4'
     }),
     MdDialogModule
-
   ],
   providers: [DeadApiService,DeadFeatureService],
   bootstrap: [AppComponent]
