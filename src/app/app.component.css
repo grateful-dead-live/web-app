@@ -1,10 +1,20 @@
-.gd-card {
-  border-radius: 3px; 
-  background: rgb(1, 6, 32, 0.6); 
-  margin: auto;
+md-card {
+  border-radius: 3px;
+  background: rgb(1, 6, 32, 0.6);
   width: 100%;
   height: 86.5%;
+  margin: auto;
+}
+
+.card-header {
+  background: white;
+}
+
+.gd-card {
+  border-radius: 0px;
   overflow: scroll;
+  background: transparent;
+  margin: 0 0 0 -24px;
 }
 
 agm-map {
@@ -32,14 +42,12 @@ div.gallery {
   width: 180px;
 }
 
-
 div.gallery img {
   width: auto;
   max-height: 150px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-
 }
 
 div.desc {
@@ -48,19 +56,19 @@ div.desc {
 }
 
 button {
-  height: 22px ;
-  min-width: 20px ;
-  font-size: 15px ;
-  line-height: 0px; 
+  height: 22px;
+  min-width: 20px;
+  font-size: 15px;
+  line-height: 0px;
 }
 
-md-toolbar.black{
-  background: rgb(1, 6, 32, 0.6); 
+md-toolbar.black {
+  background: rgb(1, 6, 32, 0.6);
   border-radius: 3px;
 }
 
 .menu-container {
-  max-height: 500px; 
+  max-height: 500px;
 }
 
 date-axis {
@@ -72,7 +80,7 @@ date-axis {
   color: rgb(219, 219, 219);
 }
 
-.main-button{
+.main-button {
   height: 35px;
   min-width: 20px;
   font-size: 21px;
@@ -80,15 +88,14 @@ date-axis {
   border-radius: 3px;
 }
 
-.tile-button{
+.tile-button {
   text-decoration: underline;
 }
 
-.img-click{
+.img-click {
   cursor: pointer;
 }
 
-md-option{
+md-option {
   cursor: pointer;
 }
-
