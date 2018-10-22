@@ -38,6 +38,7 @@ h1 {
 h4 {
   font-size: 14px;
   font-weight: normal;
+  text-align: left;
 }
 
 div.gallery {
@@ -104,3 +105,6 @@ md-option {
   cursor: pointer;
 }
 
+md-card-content{
+  text-align: justify;
+}
