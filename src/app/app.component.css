@@ -14,8 +14,9 @@ md-card {
   border-radius: 0px;
   overflow: scroll;
   background: transparent;
-  margin: 0 0 0 -24px;
+  margin: 0 0 0 -23px;
   height: 76%;
+  width: 99%;
 }
 
 agm-map {
@@ -102,3 +103,4 @@ date-axis {
 md-option {
   cursor: pointer;
 }
+
