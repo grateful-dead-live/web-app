@@ -56,6 +56,7 @@ button {
 
 md-toolbar.black{
   background: rgb(1, 6, 32, 0.6); 
+  border-radius: 3px;
 }
 
 .menu-container {
@@ -68,13 +69,13 @@ date-axis {
 
 * {
   cursor: url('../assets/bearcursor_small.png'), auto;
-  color: rgb(230, 230, 230);
+  color: rgb(219, 219, 219);
 }
 
 .main-button{
-  height: 35px ;
-  min-width: 20px ;
-  font-size: 21px ;
+  height: 35px;
+  min-width: 20px;
+  font-size: 21px;
   line-height: 0px;
   border-radius: 3px;
 }
@@ -84,6 +85,10 @@ date-axis {
 }
 
 .img-click{
+  cursor: pointer;
+}
+
+md-option{
   cursor: pointer;
 }
 

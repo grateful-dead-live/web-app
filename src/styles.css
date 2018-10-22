@@ -5,3 +5,7 @@
     padding: 3px;
     background-color:black;
   }
+
+  .mat-menu-panel {
+    background: rgb(1, 6, 32, 0.93);
+  }

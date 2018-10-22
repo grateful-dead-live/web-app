@@ -1,14 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <md-toolbar class="black">
   <img src="assets/gd_logo1.png" height="50" align="middle">
-  <md-menu #menu="mdMenu">
-      
-  </md-menu>
   
   <!--img src="https://pbs.twimg.com/profile_images/692441136472784896/KowiUPSf.jpg"-->
   <md-toolbar-row *ngIf="selectedEvent">
       <button class="main-button" md-button [mdMenuTriggerFor]="menu">{{ selectedEvent.date }} {{ selectedEvent.location }} </button>
-      <md-menu #menu="mdMenu">
+      <md-menu [overlapTrigger]="false" #menu="mdMenu">
           <div class="menu-container">
         <button md-menu-item *ngFor="let e of events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
       </div>
@@ -27,7 +24,7 @@
          <!-- <md-card-subtitle>{{ location.name }}</md-card-subtitle>  -->
       </md-card-header>
       <button class="tile-button" md-button [mdMenuTriggerFor]="locmenu">{{ location.name }} </button>
-      <md-menu #locmenu="mdMenu">
+      <md-menu [overlapTrigger]="false" #locmenu="mdMenu">
           <div class="menu-container">
         <button md-menu-item *ngFor="let e of location.events" (click)="eventSelected(e)">{{ e.date }} {{ e.venue }}</button>
       </div>
@@ -48,7 +45,7 @@
       </md-card-header>
 
       <button class="tile-button" md-button [mdMenuTriggerFor]="venmenu">{{ venue.name }} </button>
-      <md-menu #venmenu="mdMenu">
+      <md-menu [overlapTrigger]="false" #venmenu="mdMenu">
           <div class="menu-container">
         <button md-menu-item *ngFor="let e of venue.events" (click)="eventSelected(e)">{{ e.date }}</button>
       </div>
@@ -111,7 +108,7 @@
 
   <div *ngFor="let s of setlist">
       <button md-button [mdMenuTriggerFor]="setmenu">{{ s.name }}</button>
-      <md-menu #setmenu="mdMenu">
+      <md-menu [overlapTrigger]="false" #setmenu="mdMenu">
           <div class="menu-container">
           <button md-menu-item *ngFor="let e of s.events" (click)="eventSelected(e)">{{ e.date }} {{ e.location }}</button>
           </div>
