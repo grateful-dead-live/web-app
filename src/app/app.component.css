@@ -31,7 +31,7 @@ h1 {
   margin: -6px 0 0 0;
   font-size: 16px;
   font-weight: normal;
-  color: rgb(33, 87, 189);
+  color: rgb(40, 91, 185);
 }
 
 h4 {
@@ -80,7 +80,7 @@ date-axis {
 
 * {
   cursor: url('../assets/bearcursor_small.png'), auto;
-  color: rgb(209, 209, 209);
+  color: rgb(219, 219, 219);
 }
 
 .main-button {
