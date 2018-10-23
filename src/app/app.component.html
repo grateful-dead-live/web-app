@@ -222,7 +222,7 @@
       <md-card class="gd-card">
         <md-card-content>
           <div *ngFor="let e of etreeinfo.tracks; let i = index">
-            <span>track {{i+1}}</span>
+            <span class=".left"> track {{i+1}}</span>
             <img class="img-click" md-card-image src="{{ 'https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png' }}"
               (click)="openDialog('https://archive.org/download/' + etreeinfo.id + '/' + e + '_spectrogram.png')">
           </div>
