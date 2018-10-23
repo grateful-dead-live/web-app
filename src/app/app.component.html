@@ -1,14 +1,12 @@
 <md-toolbar class="black">
-  <div class="column-90">
+  <div class="column">
     <img src="assets/gd_logo1.png" height="50" align="middle">
   </div>
-  <div class="column-5">
-    <a href="http://www.semanticaudio.ac.uk/" target="_blank"><img class="img-click" src="assets/fast-logo.png" height="35"
-        align="top"></a>
-  </div>
-  <div class="column-5">
-    <a href="https://archive.org/" target="_blank"><img class="img-click" src="assets/internet-archive-logo.png" height="37"
+  <div class="column">
+    <a href="https://archive.org/" target="_blank"><img class="img-click" src="assets/internet-archive-logo.png" height="36"
         style="float:right"></a>
+    <a href="http://www.semanticaudio.ac.uk/" target="_blank"><img class="img-click" src="assets/fast-logo.png" height="34"
+        align="top" style="float:right"></a>
   </div>
   <md-toolbar-row *ngIf="selectedEvent">
     <button class="main-button" md-button [mdMenuTriggerFor]="menu">{{ selectedEvent.date }} {{ selectedEvent.location

@@ -101,14 +101,8 @@ date-axis {
   cursor: pointer;
 }
 
-.column-90 {
-  float: left;
-  width: 93%;
-}
-
-.column-5 {
-  float: left;
-  width: 3.5%;
+.column {
+  width: 50%;
 }
 
 md-option {
