@@ -71,7 +71,7 @@ export class AppComponent {
   private initRecordings(ids: string[]) {
     this.recordings = ids.map(r => ({id:r}));
     this.recordings.forEach(r =>
-      r.url = this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.id+"&playlist=1&list_height=1000"));
+      r.url = this.sanitizer.bypassSecurityTrustResourceUrl("https://archive.org/embed/"+r.id+"&playlist=1&list_height=231"));
     this.selectedRec = this.recordings[0];
   }
 
