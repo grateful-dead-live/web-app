@@ -127,20 +127,30 @@
   </md-grid-tile>
 
   <md-grid-tile *ngIf="setlist">
+    <!-- history icon, add to imprint: "Icon made by Freepik from www.flaticon.com"  -->
+    <!-- plunderphonic URL: 127.0.0.1:4201  -->
     <md-card>
       <md-card-header>
         <md-card-title>
           <h1>SETLIST</h1>
+
         </md-card-title>
       </md-card-header>
       <md-card class="gd-card">
         <md-card-content>
           <div *ngFor="let s of setlist">
             <button md-button [mdMenuTriggerFor]="setmenu">{{ s.name }}</button>
+
+            <a *ngIf="history_songs.includes(s.name.toLowerCase())" href="http://127.0.0.1:4201/?song={{ s.name }}"
+              target="_blank">
+              <img class="img-click" src="assets/history_small.png" width="16" height="16">
+            </a>
+            
             <md-menu [overlapTrigger]="false" #setmenu="mdMenu">
               <div class="menu-container">
                 <button md-menu-item *ngFor="let e of s.events" (click)="eventSelected(e)">{{ e.date }} {{ e.location
-                  }}</button>
+                  }} </button>
+
               </div>
             </md-menu>
           </div>
@@ -232,6 +242,35 @@
       </md-card>
     </md-card>
   </md-grid-tile>
+
+
+  <md-grid-tile *ngIf="(news && news.length > 0) || (news2 && news2.length > 0)">
+    <md-card>
+      <md-card-header>
+        <md-card-title>
+          <h1>NEWS HEADLINES OF THE WEEK</h1>
+        </md-card-title>
+      </md-card-header>
+      <md-card class="gd-card">
+        <md-card-content>
+          <div *ngIf="news2 && news2.length > 0">
+            <a href="https://www.theguardian.com/" target="_blank"><img class="img-click" src="assets/theguardian-logo.png"
+                height="19"></a>
+            <h4 *ngFor="let n of news2">
+              <a class="news2" href="{{ n.webUrl }}" target="_blank">{{ n.webTitle }}</a>
+            </h4>
+          </div>
+          <div *ngIf="news && news.length > 0">
+            <a href="https://www.nytimes.com/" target="_blank"><img class="img-click" src="assets/nyt_logo.png" height="19"></a>
+            <h4 class="news" *ngFor="let n of news" mdTooltip="{{ n.snippet }}">
+              {{ n.headline.main }}
+            </h4>
+          </div>
+        </md-card-content>
+      </md-card>
+    </md-card>
+  </md-grid-tile>
 </md-grid-list>
+
 
 <date-axis [events]="events" [onClick]="eventSelected.bind(this)"></date-axis>

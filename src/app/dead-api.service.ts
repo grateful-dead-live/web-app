@@ -10,8 +10,9 @@ export interface DeadEvent {
 @Injectable()
 export class DeadApiService {
 
-  private API_URL = "https://grateful-dead-api.herokuapp.com/";// "http://localhost:8060/";
-  //private API_URL = "http://localhost:8060/";
+  //private API_URL = "https://grateful-dead-api.herokuapp.com/";
+  private API_URL = "http://localhost:8060/";
+
 
   constructor() {}
 
@@ -19,6 +20,12 @@ export class DeadApiService {
     return this.getJsonFromApi('events');
   }
 
+  getNews(eventId: string): Promise<string> {
+    return this.getJsonFromApi('news?event='+encodeURIComponent(eventId));
+  }
+  getNews2(eventId: string): Promise<string> {
+    return this.getJsonFromApi('news2?event='+encodeURIComponent(eventId));
+  }
   async getVenue(eventId: string): Promise<string> {
     return this.getJsonFromApi('venue?event='+encodeURIComponent(eventId));
   }

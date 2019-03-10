@@ -7,15 +7,15 @@ md-card {
 }
 
 .card-header {
-  background: white;
+  background: transparent;
 }
 
 .gd-card {
-  border-radius: 0px;
+  /*border-radius: 0px;*/
   overflow: scroll;
   background: transparent;
   margin: 0 0 0 -23px;
-  height: 76%;
+  height: 75%;
   width: 99%;
 }
 
@@ -39,6 +39,16 @@ h4 {
   font-size: 14px;
   font-weight: normal;
   text-align: left;
+}
+
+.news {
+  cursor: default;
+  font-style: italic;
+}
+
+.news2 {
+  cursor: pointer;
+  font-style: italic;
 }
 
 div.gallery {

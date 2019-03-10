@@ -7,7 +7,7 @@ import "rxjs/add/operator/takeWhile";
 import "rxjs/add/operator/startWith";
 
 import { DeadApiService, DeadEvent } from './dead-api.service';
-import {MdDialogRef, MdDialog, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
+import {MdDialogRef, MdDialog, MdDialogConfig, MD_DIALOG_DATA, MdTooltipModule } from '@angular/material';
 import { DialogComponent } from './modal.component';
 
 @Component({
@@ -31,6 +31,9 @@ export class AppComponent {
   private recordings;
   private selectedRec;
   private etreeinfo;
+  private news;
+  private news2;
+  private history_songs;
 
 
   constructor(private dialog: MdDialog, private apiService: DeadApiService,
@@ -38,8 +41,8 @@ export class AppComponent {
     this.apiService.getEvents()
       // .then(e => this.events = e.sort())
       .then(e => this.events = e.sort((a, b) => parseFloat(a.date.replace(/-/g, '')) - parseFloat(b.date.replace(/-/g, ''))) )
-      .then(() => this.eventSelected(this.events[Math.floor(Math.random()*this.events.length)]))
-
+      .then(() => this.eventSelected(this.events[Math.floor(Math.random()*this.events.length)]));
+      this.history_songs = ['me and my uncle', 'sugar magnolia', 'playing in the band', 'jack straw', 'truckin'];
   }
 
   ngOnInit() {
@@ -61,7 +64,14 @@ export class AppComponent {
     .then(() => this.recordingSelected());
     this.apiService.getPerformers(event.id).then(p => this.performers = p)
       .then(() => this.performerImages = this.performers.map(p => p.image).filter(i => i));
-
+    this.apiService.getNews(event.id).then(n => {
+      // console.log(n);
+      this.news = n;
+    });
+    this.apiService.getNews2(event.id).then(m => {
+      // console.log(m);
+      this.news2 = m;
+    });
   }
 
   recordingSelected(){
